@@ -1,13 +1,12 @@
 #SDR For each data type separately 
 set.seed(1)
-#load("screeningdata400.rda")
 load('new_data_anova.rda')
 Z=SDRvariable
-n=58
+n=58 #numver of samples
 p=c(1000,1000,422,162)
-d=3
-s=4
-y=8
+d=3 #number of reduced dimension
+s=4 #number of data types
+y=8 # number of outcomes
 #standardization
 library(corpcor)
 
