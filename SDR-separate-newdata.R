@@ -32,7 +32,7 @@ for (i in 1:s){
 }
 
 cp=Z[[1]]
-#mirna
+#copy number
 m=matrix(0,p[1],p[1])
 for (i in 1:y){
         q=(cp[which (cp$outcome==i),])
@@ -68,12 +68,12 @@ decom=eigen(m)
 gamma3=decom$vectors[,1:d]
 
 
-mirna=Z[[4]]
+prot=Z[[4]]
 m=matrix(0,p[4],p[4])
 for (i in 1:y){
-        q=(mirna[which (mirna$outcome==i),])
+        q=(prot[which (prot$outcome==i),])
         avg=(aggregate(q[,2:163],list(q$outcome),mean))
-        m=m+(t(avg[,-1])%*%as.matrix(avg[,-1]))*sum(with(mirna,outcome==i))  
+        m=m+(t(avg[,-1])%*%as.matrix(avg[,-1]))*sum(with(prot,outcome==i))  
 }
 m=m/n
 decom=eigen(m)
