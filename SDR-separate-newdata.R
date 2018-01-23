@@ -1,9 +1,11 @@
-#SDR For each data type separately 
+
 set.seed(1)
+#load the data
 load('new_data_anova.rda')
+
 Z=SDRvariable
 n=58 #numver of samples
-p=c(1000,1000,422,162)
+p=c(1000,1000,422,162) 
 d=3 #number of reduced dimension
 s=4 #number of data types
 y=8 # number of outcomes
@@ -92,7 +94,7 @@ SDR4=as.matrix(Z[[4]][,-1])%*%gamma4
 sdr=cbind(SDR1,SDR2,SDR3,SDR4,outcome)
 colnames(sdr)=c('V1','V2','V3','V4','V5','V6','V7','V8','V9','V10','V11','V12','outcome')
 
-#V13','V14','V15','V16'
+
 SDR1=data.frame(SDR1,outcome) 
 SDR1$outcome=as.factor(SDR1$outcome)
 
@@ -107,7 +109,7 @@ SDR4=data.frame(SDR4,outcome)
 SDR4$outcome=as.factor(SDR4$outcome)
 
 library(randomForest)
-errorset1=c()
+
 rf<-function(x){
 pred=NULL
 for (i in 1:n){
@@ -128,40 +130,19 @@ pred2=rf(SDR2)
 pred3=rf(SDR3)
 pred4=rf(SDR4)
 
+
+
+accuracy=function(w,m){
+cm=table(w,m)
+right=diag(cm)
+n=sum(cm)
+acc=sum(right)/n
+ return (acc*100)
+}
+
 c<- factor(c(rep("1", 5), rep("2", 6),rep("3",7),rep("4",6),rep("5",10),rep("6",9),rep("7",7),rep("8",8)))
-
-cm=table(pred0,c)
-right=diag(cm)
-n=sum(cm)
-acc=sum(right)/n
-acc*100
-
-
-cm=table(pred1,c)
-right=diag(cm)
-n=sum(cm)
-acc=sum(right)/n
-acc*100
-
-
-cm=table(pred2,c)
-right=diag(cm)
-n=sum(cm)
-acc=sum(right)/n
-acc*100
-
-
-cm=table(pred3,c)
-right=diag(cm)
-n=sum(cm)
-acc=sum(right)/n
-acc*100
-
-
-cm=table(pred4,c)
-right=diag(cm)
-n=sum(cm)
-acc=sum(right)/n
-acc*100
-
-
+acc_overall=accuracy(pred0,c)
+acc_datatype1=accuracy(pred1,c)
+acc_datatype2=accuracy(pred2,c)
+acc_datatype3=accuracy(pred3,c)
+acc_datatype4=accuracy(pred4,c)
